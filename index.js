@@ -1,5 +1,6 @@
 const express = require('express');
 const exec = require('./services/exec');
+const getActualBlocksCount = require('./services/getActualBlocksCount');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const CMD = `${process.env.PIVXCLI} masternode status`;
@@ -17,13 +18,15 @@ app.get('/', function (req, res) {
     Promise.all([
         fetchInfo('masternode debug'),
         fetchInfo('getbalance'),
-        fetchInfo('getblockcount')
+        fetchInfo('getblockcount'),
+        getActualBlocksCount()
     ])
-        .then(([debug, balance, blockCount]) => (
+        .then(([debug, balance, blockCount, actualBlocksCount]) => (
                 res.render('status', {
                     debug,
                     balance,
-                    blockCount
+                    blockCount,
+                    actualBlocksCount
                 })
             )
         )
