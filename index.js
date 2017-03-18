@@ -4,9 +4,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const CMD = `${process.env.PIVXCLI} masternode status`;
 
+app.set('views', './views');
+app.enable('view cache');
+app.set('view engine', 'pug');
 app.get('/', function (req, res) {
     exec(CMD, function (error, stdout, stderr) {
-        res.send(stderr || stdout);
+        res.render('status', { data: stderr || stdout });
     });
 });
 
