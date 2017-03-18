@@ -1,0 +1,23 @@
+{
+  "name": "pivx_masternode-observer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zekchan/PivxMasterNodeObserver.git"
+  },
+  "author": "zkchn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zekchan/PivxMasterNodeObserver/issues"
+  },
+  "homepage": "https://github.com/zekchan/PivxMasterNodeObserver#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "install": "^0.8.7"
+  }
+}
