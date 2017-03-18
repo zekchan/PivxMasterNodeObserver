@@ -3,4 +3,15 @@ extends layout
 block content
     .row
         .col-xs-12
-            pre=data
+            table.table.table-bordered
+                tbody
+                    tr
+                        td Debug Info
+                        td=debug
+                    tr
+                        td Balance
+                        td=balance
+                    tr
+                        td Blocks count
+                        td=blockCount
+
