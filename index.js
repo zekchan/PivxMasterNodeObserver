@@ -4,7 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const CMD = `${process.env.PIVXCLI} masternode status`;
 
-const fetchInfo = cmd => exec(`${process.env.PIVXCLI} cmd`);
+const fetchInfo = cmd => exec(`${process.env.PIVXCLI} ${cmd}`);
 
 
 app.set('views', './views');
