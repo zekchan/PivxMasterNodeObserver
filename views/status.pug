@@ -6,8 +6,14 @@ block content
             table.table.table-bordered
                 tbody
                     tr
-                        td Daemon process
-                        td=daemonProcess
+                        td Daemon running
+                        if daemonProcessUptime
+                            td YES
+                        else
+                            td NO
+                    tr
+                        td Daemon Uptime
+                        td=daemonProcessUptime
                     tr
                         td Debug Info
                         td=debug
@@ -17,8 +23,5 @@ block content
                     tr
                         td Blocks count
                         td=blockCount
-                    tr
-                        td Blocks count from explorer
-                        td=actualBlocksCount
 
 

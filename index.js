@@ -1,9 +1,9 @@
 const express = require('express');
 const exec = require('./services/exec');
 const getActualBlocksCount = require('./services/getActualBlocksCount');
+const getDaemonUptime = require('./services/getDaemonUptime');
 const app = express();
 const PORT = process.env.PORT || 3000;
-const CMD = `${process.env.PIVXCLI} masternode status`;
 
 const fetchInfo = cmd => exec(`${process.env.PIVXCLI} ${cmd}`);
 
@@ -12,23 +12,18 @@ app.set('views', './views');
 app.enable('view cache');
 app.set('view engine', 'pug');
 app.get('/', function (req, res) {
-    exec(CMD, function (error, stdout, stderr) {
-        res.render('status', { data: stderr || stdout });
-    });
     Promise.all([
-        exec('ps -aux | grep pivxd$'),
+        getDaemonUptime(),
         fetchInfo('masternode debug'),
         fetchInfo('getbalance'),
-        fetchInfo('getblockcount'),
-        getActualBlocksCount()
+        fetchInfo('getblockcount')
     ])
-        .then(([daemonProcess, debug, balance, blockCount, actualBlocksCount]) => (
+        .then(([daemonProcessUptime, debug, balance, blockCount]) => (
                 res.render('status', {
-                    daemonProcess,
+                    daemonProcessUptime,
                     debug,
                     balance,
-                    blockCount,
-                    actualBlocksCount
+                    blockCount
                 })
             )
         )
