@@ -16,13 +16,15 @@ app.get('/', function (req, res) {
         res.render('status', { data: stderr || stdout });
     });
     Promise.all([
+        exec('ps -aux | grep pivxd$'),
         fetchInfo('masternode debug'),
         fetchInfo('getbalance'),
         fetchInfo('getblockcount'),
         getActualBlocksCount()
     ])
-        .then(([debug, balance, blockCount, actualBlocksCount]) => (
+        .then(([daemonProcess, debug, balance, blockCount, actualBlocksCount]) => (
                 res.render('status', {
+                    daemonProcess,
                     debug,
                     balance,
                     blockCount,
